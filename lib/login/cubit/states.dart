@@ -1,4 +1,4 @@
-import 'package:odoo_testing_app/login_model.dart';
+import 'package:odoo_testing_app/model/login_model.dart';
 
 abstract class AppStates {}
 
@@ -18,3 +18,5 @@ class AppLoginErrorState extends AppStates {
 }
 
 class ChangeIconState extends AppStates {}
+
+class ShowTokenState extends AppStates {}

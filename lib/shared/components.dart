@@ -52,7 +52,10 @@ Widget defaultTextButton({
 }) =>
     TextButton(
       onPressed: function,
-      child: Text(text.toUpperCase()),
+      child: Text(
+        text.toUpperCase(),
+        style: TextStyle(color: Colors.amber),
+      ),
     );
 Widget defaultButton({
   double width = double.infinity,
@@ -74,7 +77,7 @@ Widget defaultButton({
         child: Text(
           isUpperCase ? text.toUpperCase() : text,
           style: const TextStyle(
-            color: Colors.white,
+            color: Colors.black,
           ),
         ),
       ),

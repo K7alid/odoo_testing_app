@@ -1,14 +1,66 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:odoo_testing_app/login/cubit/cubit.dart';
+import 'package:odoo_testing_app/login/cubit/states.dart';
+import 'package:odoo_testing_app/shared/components.dart';
 
 class DetailScreen extends StatelessWidget {
-  const DetailScreen({Key? key}) : super(key: key);
+  DetailScreen({Key? key, required this.text}) : super(key: key);
+
+  final String text;
+  String? tok = 'token';
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(
-        child: Center(child: Text('any')),
-      ),
+    return BlocConsumer<AppCubit, AppStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            actions: [
+              defaultTextButton(
+                function: () {
+                  AppCubit.get(context).showToken();
+                  tok = AppCubit.get(context).tok;
+                },
+                text: 'get token',
+              ),
+            ],
+          ),
+          body: SafeArea(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  child: buildImageIcon(text, context),
+                ),
+                spaceInHeight(height: 50),
+                Text(
+                  tok!,
+                  style: TextStyle(color: Colors.red),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
+
+Widget buildImageIcon(String text, context) => Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          'assets/images/$text.png',
+        ),
+        spaceInHeight(height: 5),
+        Text(
+          text,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    );

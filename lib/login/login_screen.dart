@@ -1,9 +1,9 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:odoo_testing_app/cubit/cubit.dart';
-import 'package:odoo_testing_app/cubit/states.dart';
 import 'package:odoo_testing_app/home_layout.dart';
+import 'package:odoo_testing_app/login/cubit/cubit.dart';
+import 'package:odoo_testing_app/login/cubit/states.dart';
 import 'package:odoo_testing_app/shared/components.dart';
 import 'package:odoo_testing_app/shared/network/local/cache_helper.dart';
 
@@ -54,7 +54,7 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             ],
-            elevation: 0.0,
+            elevation: 0,
             backgroundColor: Colors.blueGrey[900],
           ),
           body: Center(
@@ -71,7 +71,8 @@ class LoginScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: Colors.blueGrey[900],
                               borderRadius: BorderRadiusDirectional.only(
-                                bottomEnd: Radius.elliptical(350, 75),
+                                bottomEnd: Radius.elliptical(400, 100),
+                                bottomStart: Radius.elliptical(400, 100),
                               ),
                             ),
                             height: MediaQuery.of(context).size.height * 0.20,
@@ -94,10 +95,19 @@ class LoginScreen extends StatelessWidget {
                                   ),
                                   spaceInHeight(height: 20),
                                   Card(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
                                     elevation: 3.0,
                                     child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadiusDirectional.all(
+                                          Radius.circular(30),
+                                        ),
+                                      ),
                                       width: double.infinity,
-                                      color: Colors.white,
                                       height:
                                           MediaQuery.of(context).size.height *
                                               0.60,
@@ -186,6 +196,8 @@ class LoginScreen extends StatelessWidget {
                                                     );
                                                   }
                                                 },
+                                                radius: 7,
+                                                background: Colors.amber,
                                                 text: 'login',
                                               ),
                                               fallback: (context) => const Center(

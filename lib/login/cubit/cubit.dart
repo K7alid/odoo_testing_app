@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:odoo_testing_app/cubit/states.dart';
-import 'package:odoo_testing_app/login_model.dart';
+import 'package:odoo_testing_app/login/cubit/states.dart';
+import 'package:odoo_testing_app/model/login_model.dart';
 import 'package:odoo_testing_app/shared/network/local/cache_helper.dart';
 import 'package:odoo_testing_app/shared/network/remote/dio_helper.dart';
 
@@ -36,7 +36,7 @@ class AppCubit extends Cubit<AppStates> {
       print('the token is ${loginModel?.accessToken}');
       CacheHelper.saveData(
         key: 'token',
-        value: loginModel?.accessToken,
+        value: loginModel!.accessToken,
       );
       print('the token in the shared is ${CacheHelper.getData(key: 'token')}');
       emit(AppLoginSuccessState(loginModel!));
@@ -44,5 +44,12 @@ class AppCubit extends Cubit<AppStates> {
       print('the error in login cubit is $error');
       emit(AppLoginErrorState(error.toString()));
     });
+  }
+
+  String? tok = 'token';
+
+  void showToken() {
+    tok = loginModel!.accessToken;
+    emit(ShowTokenState());
   }
 }

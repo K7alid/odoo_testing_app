@@ -1,4 +1,4 @@
-import 'package:odoo_testing_app/login_screen.dart';
+import 'package:odoo_testing_app/login/login_screen.dart';
 import 'package:odoo_testing_app/shared/components.dart';
 import 'package:odoo_testing_app/shared/network/local/cache_helper.dart';
 
@@ -15,4 +15,4 @@ void printFullText(String text) {
   pattern.allMatches(text).forEach((match) => print(match.group(0)));
 }
 
-String? token;
+String token = '';

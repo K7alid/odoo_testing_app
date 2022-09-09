@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:odoo_testing_app/detail_screen.dart';
 import 'package:odoo_testing_app/shared/components.dart';
 import 'package:odoo_testing_app/shared/constants.dart';
+import 'package:odoo_testing_app/shared/network/local/cache_helper.dart';
 
 class HomeLayout extends StatelessWidget {
   const HomeLayout({Key? key}) : super(key: key);
@@ -38,47 +40,43 @@ class HomeLayout extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                buildThreeImagesWithTitle(
-                  context,
-                  title: 'BOOST YOUR SALES',
-                  img1: 'CRM',
-                  img2: 'POS',
-                  img3: 'Sales',
-                  onTap: () {},
-                ),
-                spaceInHeight(height: 35),
-                buildThreeImagesWithTitle(
-                  context,
-                  title: 'INTEGRATE YOUR SERVICES',
-                  img1: 'Project',
-                  img2: 'Timesheet',
-                  img3: 'Helpdesk',
-                  onTap: () {},
-                ),
-                spaceInHeight(height: 35),
-                buildThreeImagesWithTitle(
-                  context,
-                  title: 'STREAMLINE YOUR OPERATION',
-                  img1: 'Inventory',
-                  img2: 'MRP',
-                  img3: 'Purchase',
-                  onTap: () {},
-                ),
-                spaceInHeight(height: 35),
-                buildTwoImagesWithTitle(
-                  context,
-                  title: 'BUILD STUNNING WEBSITES',
-                  img1: 'WebsiteBuilder',
-                  img2: 'ECommerce',
-                  onTap: () {},
-                ),
-              ],
-            ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              buildThreeIconWithTitle(
+                context,
+                title: 'BOOST YOUR SALES',
+                image1: 'CRM',
+                image2: 'POS',
+                image3: 'Sales',
+              ),
+              spaceInHeight(height: 35),
+              buildThreeIconWithTitle(
+                context,
+                title: 'INTEGRATE YOUR SERVICES',
+                image1: 'Project',
+                image2: 'Timesheet',
+                image3: 'Helpdesk',
+              ),
+              spaceInHeight(height: 35),
+              buildThreeIconWithTitle(
+                context,
+                title: 'STREAMLINE YOUR OPERATIONS',
+                image1: 'Inventory',
+                image2: 'MRP',
+                image3: 'Purchase',
+              ),
+              spaceInHeight(height: 35),
+              buildThreeIconWithTitle(
+                context,
+                title: 'BUILD STUNNING WEBSITES',
+                image1: 'WebsiteBuilder',
+                image2: '',
+                image3: 'ECommerce',
+                isThree: false,
+              ),
+            ],
           ),
         ),
       ),
@@ -86,19 +84,42 @@ class HomeLayout extends StatelessWidget {
   }
 }
 
-Widget buildThreeImagesWithTitle(
+Widget buildImageIcon(String text, context) => InkWell(
+      onTap: () {
+        navigateTo(
+          context,
+          DetailScreen(text: text),
+        );
+        print('helper from home ${CacheHelper.getData(key: 'token')}');
+      },
+      child: Column(
+        children: [
+          Image.asset(
+            'assets/images/$text.png',
+          ),
+          spaceInHeight(height: 5),
+          Text(
+            text,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+Widget buildThreeIconWithTitle(
   context, {
   required String title,
-  required String img1,
-  required String img2,
-  required String img3,
-  required Function onTap,
+  required String image1,
+  required String image2,
+  required String image3,
+  bool isThree = true,
 }) =>
     Column(
       children: [
         Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -109,67 +130,12 @@ Widget buildThreeImagesWithTitle(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              buildImageAndTitle(func: onTap, text: img1),
+              buildImageIcon(image1, context),
               spaceInWidth(width: 35),
-              buildImageAndTitle(func: onTap, text: img2),
-              spaceInWidth(width: 35),
-              buildImageAndTitle(func: onTap, text: img3),
+              isThree ? buildImageIcon(image2, context) : Container(),
+              isThree ? spaceInWidth(width: 35) : Container(),
+              buildImageIcon(image3, context),
             ],
-          ),
-        ),
-      ],
-    );
-
-Widget buildTwoImagesWithTitle(
-  context, {
-  required String title,
-  required String img1,
-  required String img2,
-  required Function onTap,
-}) =>
-    Column(
-      children: [
-        Text(
-          title,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        spaceInHeight(height: 10),
-        Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.17),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              buildImageAndTitle(func: onTap, text: img1),
-              spaceInWidth(width: 35),
-              buildImageAndTitle(text: img2, func: onTap),
-            ],
-          ),
-        ),
-      ],
-    );
-
-Widget buildImageAndTitle({
-  required String text,
-  required Function func,
-}) =>
-    Column(
-      children: [
-        InkWell(
-          onTap: () {
-            func(text);
-          },
-          child: Image.asset(
-            'assets/images/$text.png',
-          ),
-        ),
-        spaceInHeight(height: 5),
-        Text(
-          text,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
           ),
         ),
       ],

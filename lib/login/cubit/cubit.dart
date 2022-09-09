@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:odoo_testing_app/login/cubit/states.dart';
+import 'package:odoo_testing_app/login/login_screen.dart';
 import 'package:odoo_testing_app/model/login_model.dart';
+import 'package:odoo_testing_app/shared/components.dart';
 import 'package:odoo_testing_app/shared/network/local/cache_helper.dart';
 import 'package:odoo_testing_app/shared/network/remote/dio_helper.dart';
 
@@ -51,5 +53,13 @@ class AppCubit extends Cubit<AppStates> {
   void showToken() {
     tok = loginModel!.accessToken;
     emit(ShowTokenState());
+  }
+
+  void signOut(context) {
+    CacheHelper.removeData(
+      key: 'token',
+    ).then((value) {
+      navigateAndFinish(context, LoginScreen());
+    });
   }
 }

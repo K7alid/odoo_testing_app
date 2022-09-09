@@ -1,9 +1,13 @@
 import 'package:odoo_testing_app/login_screen.dart';
 import 'package:odoo_testing_app/shared/components.dart';
+import 'package:odoo_testing_app/shared/network/local/cache_helper.dart';
 
 void signOut(context) {
-  token = '';
-  navigateAndFinish(context, LoginScreen());
+  CacheHelper.removeData(
+    key: 'token',
+  ).then((value) {
+    navigateAndFinish(context, LoginScreen());
+  });
 }
 
 void printFullText(String text) {
@@ -11,4 +15,4 @@ void printFullText(String text) {
   pattern.allMatches(text).forEach((match) => print(match.group(0)));
 }
 
-String token = '';
+String? token;

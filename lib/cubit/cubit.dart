@@ -33,10 +33,12 @@ class AppCubit extends Cubit<AppStates> {
     ).then((value) {
       print(value.headers);
       loginModel = LoginModel.fromJson(value.data);
+      print('the token is ${loginModel?.accessToken}');
       CacheHelper.saveData(
         key: 'token',
         value: loginModel?.accessToken,
       );
+      print('the token in the shared is ${CacheHelper.getData(key: 'token')}');
       emit(AppLoginSuccessState(loginModel!));
     }).catchError((error) {
       print('the error in login cubit is $error');

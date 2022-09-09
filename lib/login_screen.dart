@@ -38,6 +38,8 @@ class LoginScreen extends StatelessWidget {
               HomeLayout(),
             );
           });
+          print(
+              'the token from login screen is${CacheHelper.getData(key: 'token')}');
         }
       },
       builder: (context, state) {

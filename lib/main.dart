@@ -15,8 +15,9 @@ void main() async {
   DioHelper.init();
   await CacheHelper.init();
   Widget widget;
-  String tok = CacheHelper.getData(key: 'token');
-  token = tok;
+  token = await CacheHelper.getData(key: 'token');
+  print('the token from main is ${token}');
+  print('the token from main is ${CacheHelper.getData(key: 'token')}');
   if (token != '') {
     widget = HomeLayout();
   } else {
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.grey,
             ),
             debugShowCheckedModeBanner: false,
-            home: LoginScreen(),
+            home: startWidget,
           );
         },
       ),

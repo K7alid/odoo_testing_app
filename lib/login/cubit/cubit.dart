@@ -36,11 +36,7 @@ class AppCubit extends Cubit<AppStates> {
       print(value.headers);
       loginModel = LoginModel.fromJson(value.data);
       print('the token is ${loginModel?.accessToken}');
-      CacheHelper.saveData(
-        key: 'token',
-        value: loginModel!.accessToken,
-      );
-      print('the token in the shared is ${CacheHelper.getData(key: 'token')}');
+      print('the token in the shared is ${CacheHelper.getData(key: 'tok')}');
       emit(AppLoginSuccessState(loginModel!));
     }).catchError((error) {
       print('the error in login cubit is $error');
@@ -51,13 +47,13 @@ class AppCubit extends Cubit<AppStates> {
   String? tok = 'token';
 
   void showToken() {
-    tok = loginModel!.accessToken;
+    tok = CacheHelper.getData(key: 'tok');
     emit(ShowTokenState());
   }
 
   void signOut(context) {
     CacheHelper.removeData(
-      key: 'token',
+      key: 'tok',
     ).then((value) {
       navigateAndFinish(context, LoginScreen());
     });

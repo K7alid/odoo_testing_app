@@ -5,22 +5,18 @@ import 'package:odoo_testing_app/login/login_screen.dart';
 import 'package:odoo_testing_app/shared/constants.dart';
 import 'package:odoo_testing_app/shared/network/local/cache_helper.dart';
 import 'package:odoo_testing_app/shared/network/remote/dio_helper.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'login/cubit/cubit.dart';
 import 'login/cubit/states.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences.setMockInitialValues({});
   DioHelper.init();
   await CacheHelper.init();
   Widget widget;
-  token = CacheHelper.getData(key: 'token') ?? '';
-  print('the token from main is $token');
-  print('the token from main is ${await CacheHelper.getData(key: 'token')}');
+  token = CacheHelper.getData(key: 'tok') ?? '';
   if (token != '') {
-    widget = HomeLayout();
+    widget = const HomeLayout();
   } else {
     widget = LoginScreen();
   }
@@ -32,7 +28,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key, required this.startWidget}) : super(key: key);
+  const MyApp({Key? key, required this.startWidget}) : super(key: key);
 
   final Widget startWidget;
 

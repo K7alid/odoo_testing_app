@@ -30,16 +30,14 @@ class LoginScreen extends StatelessWidget {
             state: ToastStates.SUCCESS,
           );
           CacheHelper.saveData(
-            key: 'token',
+            key: 'tok',
             value: state.loginModel.accessToken,
           ).then((value) {
             navigateAndFinish(
               context,
-              HomeLayout(),
+              const HomeLayout(),
             );
           });
-          print(
-              'the token from login screen is${CacheHelper.getData(key: 'token')}');
         }
       },
       builder: (context, state) {
@@ -70,7 +68,7 @@ class LoginScreen extends StatelessWidget {
                           Container(
                             decoration: BoxDecoration(
                               color: Colors.blueGrey[900],
-                              borderRadius: BorderRadiusDirectional.only(
+                              borderRadius: const BorderRadiusDirectional.only(
                                 bottomEnd: Radius.elliptical(400, 100),
                                 bottomStart: Radius.elliptical(400, 100),
                               ),
@@ -79,13 +77,13 @@ class LoginScreen extends StatelessWidget {
                             width: double.infinity,
                           ),
                           Center(
-                            child: Container(
+                            child: SizedBox(
                               width: MediaQuery.of(context).size.width * 0.90,
                               height: MediaQuery.of(context).size.height * 0.85,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     'Welcome back!',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -100,7 +98,7 @@ class LoginScreen extends StatelessWidget {
                                     ),
                                     elevation: 3.0,
                                     child: Container(
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         color: Colors.white,
                                         borderRadius:
                                             BorderRadiusDirectional.all(

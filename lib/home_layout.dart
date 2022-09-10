@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:odoo_testing_app/detail_screen.dart';
 import 'package:odoo_testing_app/shared/components.dart';
-import 'package:odoo_testing_app/shared/network/local/cache_helper.dart';
 
 import 'login/cubit/cubit.dart';
 import 'login/cubit/states.dart';
@@ -23,15 +22,12 @@ class HomeLayout extends StatelessWidget {
             fit: BoxFit.fill,
           ),
         ),
-
-        /*
         actions: [
           BlocBuilder<AppCubit, AppStates>(
             builder: (context, state) {
-              AppCubit cubit = BlocProvider.of(context);
               return IconButton(
                   onPressed: () {
-                    cubit.signOut(context);
+                    AppCubit.get(context).signOut(context);
                   },
                   icon: const Icon(
                     Icons.logout,
@@ -39,36 +35,6 @@ class HomeLayout extends StatelessWidget {
                   ));
             },
           ),
-        */
-        actions: [
-          BlocBuilder<AppCubit, AppStates>(
-            builder: (context, state) {
-              AppCubit cubit = BlocProvider.of(context);
-              return IconButton(
-                  onPressed: () {
-                    cubit.signOut(context);
-                  },
-                  icon: const Icon(
-                    Icons.logout,
-                    color: Colors.black,
-                  ));
-            },
-          ),
-          /*IconButton(
-              onPressed: () {
-                signOut(context);
-              },
-              icon: const Icon(
-                Icons.logout,
-                color: Colors.black,
-              )),
-          const Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Icon(
-              Icons.menu,
-              color: Colors.black,
-            ),
-          ),*/
         ],
       ),
       body: Padding(
@@ -123,7 +89,6 @@ Widget buildImageIcon(String text, context) => InkWell(
           context,
           DetailScreen(text: text),
         );
-        print('helper from home ${CacheHelper.getData(key: 'token')}');
       },
       child: Column(
         children: [
@@ -152,7 +117,7 @@ Widget buildThreeIconWithTitle(
       children: [
         Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),

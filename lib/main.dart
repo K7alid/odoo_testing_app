@@ -1,7 +1,9 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:odoo_testing_app/home_layout.dart';
 import 'package:odoo_testing_app/login/login_screen.dart';
+import 'package:odoo_testing_app/shared/bloc_observer.dart';
 import 'package:odoo_testing_app/shared/constants.dart';
 import 'package:odoo_testing_app/shared/network/local/cache_helper.dart';
 import 'package:odoo_testing_app/shared/network/remote/dio_helper.dart';
@@ -20,10 +22,14 @@ void main() async {
   } else {
     widget = LoginScreen();
   }
-  runApp(
-    MyApp(
-      startWidget: widget,
-    ),
+  Bloc.observer;
+  BlocOverrides.runZoned(
+    () {
+      runApp(MyApp(
+        startWidget: widget,
+      ));
+    },
+    blocObserver: MyBlocObserver(),
   );
 }
 

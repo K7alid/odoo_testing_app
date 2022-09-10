@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:odoo_testing_app/login/cubit/cubit.dart';
 import 'package:odoo_testing_app/login/cubit/states.dart';
 import 'package:odoo_testing_app/shared/components.dart';
-import 'package:odoo_testing_app/shared/network/local/cache_helper.dart';
 
 class DetailScreen extends StatelessWidget {
   DetailScreen({Key? key, required this.text}) : super(key: key);
@@ -23,7 +22,7 @@ class DetailScreen extends StatelessWidget {
               defaultTextButton(
                 function: () {
                   AppCubit.get(context).showToken();
-                  tok = CacheHelper.getData(key: 'tok');
+                  tok = AppCubit.get(context).tok;
                 },
                 text: 'get token',
               ),
